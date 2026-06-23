@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Supply Clinics Brochure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #102033;
+      --deep: #08111d;
+      --line: rgba(16, 32, 51, 0.12);
+      --white: #ffffff;
+      --muted: #5c6b7b;
+      --success: #dff2e7;
+      --success-ink: #214d35;
+      --shadow: 0 18px 50px rgba(8, 17, 29, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Manrope", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(179, 135, 82, 0.18), transparent 28%),
+        linear-gradient(180deg, #eff3f6 0%, #e7edf2 100%);
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .brochure { width: min(1120px, calc(100% - 40px)); margin: 28px auto 60px; }
+    .page {
+      position: relative;
+      min-height: 1400px;
+      margin-bottom: 28px;
+      padding: 34px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      page-break-after: always;
+    }
+    .page:last-child { page-break-after: auto; }
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.7), transparent 28%),
+        linear-gradient(180deg, transparent, rgba(8, 17, 29, 0.02));
+    }
+    .page-dark {
+      color: var(--white);
+      background:
+        linear-gradient(150deg, rgba(135, 183, 188, 0.18), transparent 28%),
+        linear-gradient(135deg, #07101b 0%, #102033 52%, #183047 100%);
+    }
+    .page-dark::before {
+      background:
+        radial-gradient(circle at top right, rgba(179, 135, 82, 0.25), transparent 28%),
+        linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.04));
+    }
+    .chrome { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 28px; height: 100%; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .page-light .topbar { border-bottom-color: var(--line); }
+    .brand { display: flex; align-items: center; gap: 16px; }
+    .brand img { width: 164px; height: auto; filter: brightness(0) invert(1); }
+    .page-light .brand img { filter: none; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.68);
+    }
+    .page-light .eyebrow { color: rgba(16, 32, 51, 0.56); }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; opacity: 0.8; }
+    .top-meta { text-align: right; }
+    .top-meta strong, .top-meta span { display: block; }
+    .top-meta strong { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .top-meta span { margin-top: 6px; font-size: 12px; color: rgba(255, 255, 255, 0.7); }
+    .page-light .top-meta span { color: var(--muted); }
+    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; align-items: stretch; }
+    .hero-copy { display: flex; flex-direction: column; gap: 18px; padding: 14px 0 0; }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    h1 { font-size: clamp(56px, 7vw, 92px); max-width: 8ch; }
+    h2 { font-size: clamp(36px, 4vw, 54px); }
+    h3 { font-size: 28px; }
+    .lede { max-width: 58ch; font-size: 16px; line-height: 1.8; color: rgba(255, 255, 255, 0.76); }
+    .page-light .lede, .page-light p, .page-light li { color: var(--muted); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .button-primary { color: var(--deep); background: linear-gradient(135deg, #f3e2cb, #d2b087); }
+    .button-secondary { color: var(--white); background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); }
+    .button-dark { color: var(--white); background: var(--ink); }
+    .visual-stack {
+      position: relative;
+      min-height: 540px;
+      border-radius: 26px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+        #132537;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .visual-stack::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -18% 40%;
+      height: 280px;
+      background: radial-gradient(circle, rgba(135, 183, 188, 0.24), transparent 60%);
+      transform: rotate(-8deg);
+    }
+    .visual-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.35;
+    }
+    .visual-card { position: absolute; border-radius: 22px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22); }
+    .visual-card img { width: 100%; height: 100%; object-fit: cover; }
+    .visual-card.large { top: 24px; left: 26px; width: 74%; height: 300px; }
+    .visual-card.small { right: 24px; bottom: 28px; width: 48%; height: 190px; border: 8px solid rgba(255, 255, 255, 0.08); }
+    .visual-note {
+      position: absolute;
+      left: 28px;
+      bottom: 28px;
+      width: 44%;
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      background: rgba(7, 16, 27, 0.78);
+      backdrop-filter: blur(14px);
+    }
+    .visual-note strong, .visual-note span { display: block; }
+    .visual-note strong { margin-bottom: 8px; font-size: 28px; color: #f8eddc; }
+    .visual-note span { font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, 0.74); }
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .metric { padding: 22px 20px; border-radius: 22px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .page-light .metric { background: linear-gradient(180deg, #fbfaf8, #f1ece5); border-color: rgba(16, 32, 51, 0.08); }
+    .metric strong { display: block; margin-bottom: 6px; font-size: 36px; font-family: "Cormorant Garamond", Georgia, serif; }
+    .metric span { display: block; font-size: 12px; line-height: 1.6; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255, 255, 255, 0.7); }
+    .page-light .metric span { color: var(--muted); }
+    .section-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 24px; align-items: start; }
+    .feature-panel, .quote-panel, .bundle-panel, .pricing-panel, .contact-panel { border-radius: 24px; overflow: hidden; }
+    .feature-panel { padding: 28px; background: linear-gradient(180deg, #f9f5ef, #efe7dc); border: 1px solid rgba(16, 32, 51, 0.08); }
+    .feature-list { display: grid; gap: 14px; margin-top: 22px; }
+    .feature-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(16, 32, 51, 0.08);
+    }
+    .feature-item:last-child { padding-bottom: 0; border-bottom: 0; }
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .feature-copy strong { display: block; margin-bottom: 6px; font-size: 16px; color: var(--ink); }
+    .feature-copy span { display: block; font-size: 14px; line-height: 1.7; color: var(--muted); }
+    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .project-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.04), transparent 45%), rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      min-height: 236px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -18% 42%;
+      height: 160px;
+      background: radial-gradient(circle, rgba(179, 135, 82, 0.28), transparent 65%);
+    }
+    .project-tag, .price-chip, .subtle-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .project-tag { color: #eedbc6; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); }
+    .project-card p, .quote-panel p, .bundle-copy p, .bundle-copy li { font-size: 14px; line-height: 1.75; margin: 0; }
+    .project-card h3 { margin: 14px 0 10px; font-size: 30px; }
+    .project-card ul { margin: 14px 0 0; padding-left: 18px; color: rgba(255, 255, 255, 0.76); }
+    .project-card li { margin-bottom: 8px; font-size: 13px; line-height: 1.6; }
+    .quote-panel {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      min-height: 280px;
+      background: linear-gradient(180deg, #102033, #183047);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .quote-copy { padding: 30px; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+    .quote-copy blockquote { margin: 0; font-family: "Cormorant Garamond", Georgia, serif; font-size: 38px; line-height: 1.02; }
+    .quote-copy small { font-size: 13px; line-height: 1.8; color: rgba(255, 255, 255, 0.72); }
+    .quote-image { min-height: 100%; background: linear-gradient(180deg, rgba(7, 16, 27, 0.14), rgba(7, 16, 27, 0.28)), url("https://www.lifesupplyclinics.com/wp-content/uploads/2025/12/solution.png") center/cover no-repeat; }
+    .product-hero { display: grid; grid-template-columns: 0.88fr 1.12fr; gap: 24px; align-items: start; }
+    .pricing-panel { padding: 28px; background: linear-gradient(180deg, #102033, #12263b); color: var(--white); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .pricing-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .pricing-panel h2 { max-width: 9ch; }
+    .pricing-panel .lede { max-width: none; margin-bottom: 22px; }
+    .pricing-summary { display: grid; gap: 14px; }
+    .summary-row {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .summary-row:last-child { padding-bottom: 0; border-bottom: 0; }
+    .summary-row strong, .summary-row span { display: block; }
+    .summary-row strong { font-size: 14px; line-height: 1.6; }
+    .summary-row span { margin-top: 4px; font-size: 12px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); }
+    .summary-price { white-space: nowrap; font-size: 24px; font-family: "Cormorant Garamond", Georgia, serif; color: #f8e7d2; }
+    .subtle-chip { color: var(--success-ink); background: var(--success); }
+    .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .product-card {
+      padding: 20px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #ffffff, #f5f0e8);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 410px;
+    }
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #f9fafb, #edf1f4);
+      padding: 18px;
+    }
+    .product-card h3 { font-size: 25px; line-height: 0.98; color: var(--ink); }
+    .product-card p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
+    .price-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: auto; }
+    .price-chip { color: var(--ink); background: #efe1cf; }
+    .price-row strong { font-size: 34px; font-family: "Cormorant Garamond", Georgia, serif; color: var(--ink); }
+    .bundle-panel {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      min-height: 316px;
+      background: linear-gradient(180deg, #f9f5ef, #efe7dc);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+    }
+    .bundle-image { background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(16, 32, 51, 0.04)), url("https://www.lifesupplyclinics.com/wp-content/uploads/2025/11/Midmark-Ritter-204-Manual-Exam-Table-Base-500x500.webp") center/contain no-repeat, #e9edf0; min-height: 100%; }
+    .bundle-copy { padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+    .bundle-total {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: var(--ink);
+      color: var(--white);
+    }
+    .bundle-total strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255, 255, 255, 0.72); }
+    .bundle-total span { display: block; margin-top: 6px; font-family: "Cormorant Garamond", Georgia, serif; font-size: 40px; line-height: 1; }
+    .bundle-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .bundle-list li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(16, 32, 51, 0.1);
+      color: var(--ink);
+    }
+    .bundle-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .bundle-list strong { font-size: 14px; line-height: 1.6; }
+    .bundle-list span { white-space: nowrap; font-weight: 800; color: var(--ink); }
+    .contact-panel {
+      padding: 26px 28px;
+      background: linear-gradient(140deg, #102033, #183047);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .contact-panel strong, .contact-panel span { display: block; }
+    .contact-panel strong { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); }
+    .contact-panel span { margin-top: 8px; font-size: 17px; line-height: 1.7; }
+    .footer-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(16, 32, 51, 0.12);
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .page-dark .footer-note { border-top-color: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.68); }
+    @page { size: A4 portrait; margin: 12mm; }
+    @media (max-width: 980px) {
+      .brochure { width: min(100%, calc(100% - 24px)); margin: 12px auto 32px; }
+      .page { min-height: auto; padding: 24px; border-radius: 22px; }
+      .hero, .section-grid, .product-hero, .quote-panel, .bundle-panel, .contact-panel { grid-template-columns: 1fr; }
+      .metrics, .project-grid, .product-grid { grid-template-columns: 1fr; }
+      .visual-stack { min-height: 420px; }
+      .visual-card.large { width: calc(100% - 40px); left: 20px; right: 20px; }
+      .visual-card.small { width: 52%; }
+      .visual-note { width: calc(100% - 40px); }
+      .topbar, .footer-note { flex-direction: column; align-items: start; }
+      .top-meta { text-align: left; }
+    }
+    @media print {
+      body { background: #ffffff; }
+      .brochure { width: 100%; margin: 0; }
+      .page { margin: 0 0 12mm; box-shadow: none; break-after: page; }
+      .page:last-child { break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="brochure">
+    <section class="page page-dark">
+      <div class="chrome">
+        <header class="topbar">
+          <div class="brand">
+            <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/12/logo1.svg" alt="Life Supply Clinics">
+            <div>
+              <div class="eyebrow">Clinic design, construction and equipment</div>
+            </div>
+          </div>
+          <div class="top-meta">
+            <strong>Surrey, British Columbia</strong>
+            <span>100% Canadian company</span>
+          </div>
+        </header>
+
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">We design and build beautiful medical clinics</span>
+            <h1>From concept to clinic opening.</h1>
+            <p class="lede">
+              Life Supply Clinics combines healthcare construction expertise with a catalog of 40,000+ medical products, giving clients one partner for planning, design, buildout, equipment sourcing, and launch.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://www.lifesupplyclinics.com/">Book a free consultation</a>
+              <a class="button button-secondary" href="https://www.lifesupplyclinics.com/our-projects/">See clinic projects</a>
+            </div>
+          </div>
+
+          <div class="visual-stack">
+            <div class="visual-grid"></div>
+            <div class="visual-card large">
+              <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/12/solution.png" alt="Life Supply Clinics healthcare environment">
+            </div>
+            <div class="visual-card small">
+              <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/12/frame-52.png" alt="Life Supply Clinics clinic planning">
+            </div>
+            <div class="visual-note">
+              <strong>30+ years</strong>
+              <span>Healthcare-sector experience across clinic planning, construction coordination, furniture, and medical equipment procurement.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <article class="metric">
+            <strong>40K+</strong>
+            <span>Medical products available for new clinics and expansions</span>
+          </article>
+          <article class="metric">
+            <strong>200+</strong>
+            <span>Manufacturers with institutional purchasing access</span>
+          </article>
+          <article class="metric">
+            <strong>3</strong>
+            <span>Core phases: planning, design, and construction delivery</span>
+          </article>
+          <article class="metric">
+            <strong>1</strong>
+            <span>Single partner coordinating build, branding, and equipment</span>
+          </article>
+        </div>
+
+        <div class="section-grid">
+          <div class="feature-panel">
+            <span class="eyebrow">How we work</span>
+            <h2 style="margin-top: 14px; color: var(--ink); max-width: 10ch;">One partner for the full clinic lifecycle.</h2>
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="feature-icon">01</div>
+                <div class="feature-copy">
+                  <strong>Planning</strong>
+                  <span>Site review, workflow planning, feasibility support, budgeting, and compliance thinking from day one.</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">02</div>
+                <div class="feature-copy">
+                  <strong>Design</strong>
+                  <span>Layouts, finishes, branded patient experience, and practical room design shaped around healthcare operations.</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">03</div>
+                <div class="feature-copy">
+                  <strong>Build + Equip</strong>
+                  <span>Trade coordination, fit-out execution, furniture, diagnostics, exam room equipment, and supply sourcing.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote-panel">
+            <div class="quote-copy">
+              <span class="eyebrow">Designed to pull readers in</span>
+              <blockquote>Build a clinic that feels calm, premium, and ready for growth.</blockquote>
+              <small>
+                This layout is built to mirror the Life Supply Clinics positioning: elevated healthcare interiors, strong value presentation, and a clean path from clinic construction to product purchasing.
+              </small>
+            </div>
+            <div class="quote-image"></div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Website: lifesupplyclinics.com</span>
+          <span>Phone: 1-855-755-5433 | Email: info@lifesupplyclinics.com</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page page-dark">
+      <div class="chrome">
+        <header class="topbar">
+          <div class="brand">
+            <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/12/logo1.svg" alt="Life Supply Clinics">
+            <div class="eyebrow">Clinic construction showcase</div>
+          </div>
+          <div class="top-meta">
+            <strong>Page 2</strong>
+            <span>Projects and value story</span>
+          </div>
+        </header>
+
+        <div>
+          <span class="eyebrow">Our projects across British Columbia</span>
+          <h2 style="margin-top: 14px; max-width: 10ch;">Beautiful clinics that balance workflow, trust, and clinical performance.</h2>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div>
+              <span class="project-tag">Medical | Burnaby, BC</span>
+              <h3>Medical Clinic Construction in Burnaby</h3>
+              <p>A clean, contemporary medical environment with a refined front-of-house feel, practical patient flow, and a finish palette that feels premium without losing clinical clarity.</p>
+            </div>
+            <ul>
+              <li>Reception-led layout with modern material contrast</li>
+              <li>Built for patient comfort and staff efficiency</li>
+              <li>Strong first impression for private practice growth</li>
+            </ul>
+          </article>
+
+          <article class="project-card">
+            <div>
+              <span class="project-tag">Dental | Squamish, BC</span>
+              <h3>Oral Surgery Clinic in Squamish</h3>
+              <p>High-performance clinical planning shaped for specialized care, with equipment-ready rooms, cleanable finishes, and a calm setting for surgical patients.</p>
+            </div>
+            <ul>
+              <li>Procedure-driven room planning</li>
+              <li>Integrated casework and clinical infrastructure</li>
+              <li>Professional brand presentation throughout</li>
+            </ul>
+          </article>
+
+          <article class="project-card">
+            <div>
+              <span class="project-tag">Dental | White Rock, BC</span>
+              <h3>Oral Surgery in White Rock</h3>
+              <p>A bright, polished clinic aesthetic with strong lighting, efficient reception workflow, and a modern visual language aligned with premium patient care.</p>
+            </div>
+            <ul>
+              <li>Light-forward reception and consultation experience</li>
+              <li>Balanced warmth and clinical professionalism</li>
+              <li>Built to support throughput without visual clutter</li>
+            </ul>
+          </article>
+
+          <article class="project-card">
+            <div>
+              <span class="project-tag">Allied Health | BC</span>
+              <h3>Wellness and Allied Health Clinics</h3>
+              <p>Flexible treatment environments that support multidisciplinary care, warm finishes, and an atmosphere that helps patients feel at ease from the moment they arrive.</p>
+            </div>
+            <ul>
+              <li>Adaptable rooms for wellness and specialist services</li>
+              <li>Warm hospitality cues without sacrificing compliance</li>
+              <li>Designed for longevity and future service expansion</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-grid">
+          <div class="feature-panel">
+            <span class="eyebrow">Why clients choose Life Supply Clinics</span>
+            <div class="feature-list" style="margin-top: 18px;">
+              <div class="feature-item">
+                <div class="feature-icon">A</div>
+                <div class="feature-copy">
+                  <strong>Construction and equipment under one roof</strong>
+                  <span>Clients avoid the usual disconnect between design, fit-out, and final equipment selection.</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">B</div>
+                <div class="feature-copy">
+                  <strong>Healthcare-specific sourcing power</strong>
+                  <span>Institutional pricing and broad manufacturer access bring more control over budgets and lead times.</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">C</div>
+                <div class="feature-copy">
+                  <strong>Brand-forward clinic presentation</strong>
+                  <span>The company positioning supports clinics that need to look polished, credible, and growth-ready.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-panel" style="background: linear-gradient(180deg, #112235, #183047); color: var(--white); border-color: rgba(255, 255, 255, 0.08);">
+            <span class="eyebrow">Design direction</span>
+            <h2 style="margin-top: 14px; max-width: 9ch;">A brochure that sells both expertise and value.</h2>
+            <p class="lede" style="max-width: none; margin-top: 16px;">
+              The visual system intentionally leans closer to premium architecture marketing than generic medical advertising. That creates more pull for clinic owners who are buying an outcome, not just a contractor.
+            </p>
+            <div class="hero-actions" style="margin-top: 14px;">
+              <a class="button button-primary" href="https://www.lifesupplyclinics.com/our-projects/">View more projects</a>
+              <a class="button button-secondary" href="https://www.lifesupplyclinics.com/contact-us/">Request consultation</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Positioning: We build and design clinics, then equip them.</span>
+          <span>Use this as page 2 in a 3-page PDF or brochure export.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page page-light">
+      <div class="chrome">
+        <header class="topbar">
+          <div class="brand">
+            <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/12/logo1.svg" alt="Life Supply Clinics">
+            <div class="eyebrow">Medical products with pricing</div>
+          </div>
+          <div class="top-meta">
+            <strong>Page 3</strong>
+            <span>Equipment and pricing focus</span>
+          </div>
+        </header>
+
+        <div class="product-hero">
+          <div class="pricing-panel">
+            <div class="pricing-head">
+              <div>
+                <span class="eyebrow">40,000+ products</span>
+                <h2 style="margin-top: 12px;">Show the value clearly.</h2>
+              </div>
+              <span class="subtle-chip">Pricing highlighted</span>
+            </div>
+            <p class="lede">
+              Product pricing is treated as a feature, not a footnote. This page is built to help the reader quickly connect equipment quality, SKU detail, and total investment.
+            </p>
+            <div class="pricing-summary">
+              <div class="summary-row">
+                <div>
+                  <strong>SM2WAX | Welch Allyn Green Series 777 Integrated Diagnostic Wall System</strong>
+                  <span>Wall-mounted diagnostic system for exam rooms and daily patient assessment.</span>
+                </div>
+                <div class="summary-price">$2,194.91</div>
+              </div>
+              <div class="summary-row">
+                <div>
+                  <strong>2400-MS | Mobile Stand with Cuff Storage Basket for Welch Allyn ProBP 2400</strong>
+                  <span>Mobile accessory stand that keeps blood pressure workflow portable and organized.</span>
+                </div>
+                <div class="summary-price">$559.79</div>
+              </div>
+              <div class="summary-row">
+                <div>
+                  <strong>2400 | Welch Allyn ProBP 2400 Digital Blood Pressure Unit</strong>
+                  <span>Reliable digital blood pressure device designed for fast, repeatable readings.</span>
+                </div>
+                <div class="summary-price">$850.89</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bundle-panel">
+            <div class="bundle-image"></div>
+            <div class="bundle-copy">
+              <span class="eyebrow">Complete set offer</span>
+              <h3>Ritter 204 exam room package</h3>
+              <p>Presenting the exam table as a complete investment gives the client a better value anchor than splitting the room components too early.</p>
+              <ul class="bundle-list">
+                <li>
+                  <strong>002-10138-857 | Seamless Upholstery Top for Ritter 204</strong>
+                  <span>$1,552.46</span>
+                </li>
+                <li>
+                  <strong>204-011 | Ritter 204 Manual Exam Table Base</strong>
+                  <span>$3,350.49</span>
+                </li>
+              </ul>
+              <div class="bundle-total">
+                <div>
+                  <strong>Total complete set</strong>
+                  <span>$4,902.95</span>
+                </div>
+                <a class="button button-primary" href="https://www.lifesupplyclinics.com/clinic-equipment/">Request quote</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/11/Welch-Allyn-Green-Series-777-Integrated-Diagnostic-Wall-System-500x500.webp" alt="Welch Allyn Green Series 777 Integrated Diagnostic Wall System">
+            <span class="price-chip">Diagnostics</span>
+            <h3>Welch Allyn Green Series 777</h3>
+            <p>Integrated exam room wall system for organized, everyday diagnostics with a professional clinical footprint.</p>
+            <div class="price-row">
+              <strong>$2,194.91</strong>
+              <span>SKU SM2WAX</span>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/11/Mobile-Stand-with-Cuff-Storage-Basket-for-Welch-Allyn-ProBP-2400-500x500.webp" alt="Mobile Stand with Cuff Storage Basket for Welch Allyn ProBP 2400">
+            <span class="price-chip">Accessories</span>
+            <h3>Mobile Stand with Cuff Basket</h3>
+            <p>Mobile support stand that improves room-to-room blood pressure workflow and keeps accessories stored in one place.</p>
+            <div class="price-row">
+              <strong>$559.79</strong>
+              <span>SKU 2400-MS</span>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/11/Welch-Allyn-ProBP-2400-Digital-Blood-Pressure-Unit-500x500.webp" alt="Welch Allyn ProBP 2400 Digital Blood Pressure Unit">
+            <span class="price-chip">Diagnostics</span>
+            <h3>Welch Allyn ProBP 2400</h3>
+            <p>Digital blood pressure unit built for dependable readings, practical workflow, and routine use in busy healthcare settings.</p>
+            <div class="price-row">
+              <strong>$850.89</strong>
+              <span>SKU 2400</span>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="https://www.lifesupplyclinics.com/wp-content/uploads/2025/11/Midmark-Ritter-204-Manual-Exam-Table-Base-500x500.webp" alt="Ritter 204 Manual Exam Table Base">
+            <span class="price-chip">Furniture</span>
+            <h3>Ritter 204 Exam Table Base</h3>
+            <p>Core exam room furniture piece presented here as part of a complete set to reinforce total room value and budget clarity.</p>
+            <div class="price-row">
+              <strong>$3,350.49</strong>
+              <span>SKU 204-011</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="contact-panel">
+          <div>
+            <strong>Contact</strong>
+            <span>1-855-755-5433<br>info@lifesupplyclinics.com</span>
+          </div>
+          <div>
+            <strong>Address</strong>
+            <span>Unit 206 - 15300 54a Ave<br>Surrey, BC V3S 5X7</span>
+          </div>
+          <a class="button button-dark" href="https://www.lifesupplyclinics.com/">Visit website</a>
+        </div>
+
+        <div class="footer-note">
+          <span>Prepared as a standalone 3-page-style brochure HTML.</span>
+          <span>Remote product images point to lifesupplyclinics.com assets for easy reuse.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
